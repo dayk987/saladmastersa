@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salad Master</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+  <!-- Navbar (Sticky) -->
+  <nav class="bg-white shadow p-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-green-600">Salad Master</a>
+      <button id="menu-btn" class="md:hidden text-green-600 font-bold text-2xl">☰</button>
+      <div id="menu" class="hidden md:flex space-x-4 items-center">
+        <a href="#about" class="hover:text-green-600">About</a>
+        <a href="events.html" class="hover:text-green-600">Events</a>
+        <a href="articles.html" class="hover:text-green-600">Articles</a>
+        <a href="admin/login.html" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => menu.classList.toggle('hidden'));
+
+    // Add shadow when scrolling
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        nav.classList.add('shadow-lg');
+      } else {
+        nav.classList.remove('shadow-lg');
+      }
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="bg-green-100">
+    <div class="max-w-7xl mx-auto px-4 py-20 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-green-800 mb-4">Healthy Salads, Fresh Ideas</h1>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">Join our community to learn, share, and enjoy the best salad recipes and events.</p>
+      <a href="#events" class="bg-green-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-green-700">View Events</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="max-w-7xl mx-auto px-4 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-800">About Salad Master</h2>
+      <p class="text-gray-600 mt-4">Salad Master is your go-to platform for fresh, healthy recipes, community events, and expert articles about salads and nutrition.</p>
+    </div>
+  </section>
+
+  <!-- Featured Events -->
+  <section id="events" class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800">Upcoming Events</h2>
+        <p class="text-gray-600 mt-4">Join our interactive events and workshops.</p>
+      </div>
+      <div id="events-list" class="grid md:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <script>
+    // Dynamic events
+    const events = [
+      { title: "Spring Salad Workshop", desc: "Learn how to make fresh spring salads with seasonal ingredients.", date: "Jan 20, 2026" },
+      { title: "Healthy Lunch Meetup", desc: "Meet fellow salad enthusiasts and share recipes.", date: "Feb 10, 2026" },
+      { title: "Salad Master Cooking Challenge", desc: "Participate in our salad cooking contest and win prizes.", date: "Mar 5, 2026" }
+    ];
+
+    const eventsContainer = document.getElementById('events-list');
+    events.forEach(e => {
+      const card = document.createElement('div');
+      card.className = 'bg-green-50 p-6 rounded-lg shadow hover:shadow-lg transition';
+      card.innerHTML = `
+        <h3 class="text-xl font-bold text-green-800 mb-2">${e.title}</h3>
+        <p class="text-gray-600 mb-4">${e.desc}</p>
+        <span class="text-sm text-gray-500">Date: ${e.date}</span>
+      `;
+      eventsContainer.appendChild(card);
+    });
+  </script>
+
+  <!-- Featured Articles -->
+  <section id="articles" class="max-w-7xl mx-auto px-4 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-800">Latest Articles</h2>
+      <p class="text-gray-600 mt-4">Tips, guides, and inspiration for your salad journey.</p>
+    </div>
+    <div id="articles-list" class="grid md:grid-cols-3 gap-8"></div>
+  </section>
+
+  <script>
+    // Dynamic articles
+    const articles = [
+      { title: "5 Fresh Salads for Summer", desc: "Discover easy and refreshing salads perfect for hot days.", link: "#" },
+      { title: "Nutrition Tips for Salad Lovers", desc: "Maximize the health benefits of your salads with these tips.", link: "#" },
+      { title: "Creative Salad Dressings", desc: "Learn how to make dressings that elevate your salads.", link: "#" }
+    ];
+
+    const articlesContainer = document.getElementById('articles-list');
+    articles.forEach(a => {
+      const card = document.createElement('div');
+      card.className = 'bg-white p-6 rounded-lg shadow hover:shadow-lg transition';
+      card.innerHTML = `
+        <h3 class="text-xl font-bold text-gray-800 mb-2">${a.title}</h3>
+        <p class="text-gray-600 mb-4">${a.desc}</p>
+        <a href="${a.link}" class="text-green-600 font-semibold hover:underline">Read More</a>
+      `;
+      articlesContainer.appendChild(card);
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-200 py-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p>&copy; 2025 Salad Master. All rights reserved.</p>
+      <div class="mt-2">
+        <a href="#" class="text-green-400 hover:underline mx-2">Facebook</a>
+        <a href="#" class="text-green-400 hover:underline mx-2">Instagram</a>
+        <a href="#" class="text-green-400 hover:underline mx-2">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
