@@ -6,74 +6,70 @@
   <title>Articles - Salad Master</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
+<body class="bg-green-50 text-gray-800 transition-colors duration-500">
 
   <!-- Navbar -->
-  <nav class="bg-white shadow p-4 sticky top-0 z-50">
+  <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-green-600">Salad Master</a>
-      <button id="menu-btn" class="md:hidden text-green-600 font-bold text-2xl">☰</button>
-      <div id="menu" class="hidden md:flex space-x-4 items-center">
-        <a href="index.html#about" class="hover:text-green-600">About</a>
-        <a href="events.html" class="hover:text-green-600">Events</a>
-        <a href="articles.html" class="hover:text-green-600">Articles</a>
-        <a href="admin/login.html" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Admin</a>
+      <a href="index.html" class="text-2xl font-bold text-green-700 tracking-tight">Salad Master</a>
+      <button id="menu-btn" class="md:hidden text-green-700 font-bold text-2xl">☰</button>
+      <div id="menu" class="hidden md:flex space-x-6 items-center">
+        <a href="index.html#about" class="hover:text-green-800 transition">About</a>
+        <a href="events.html" class="hover:text-yellow-700 transition">Events</a>
+        <a href="articles.html" class="hover:text-orange-600 transition">Articles</a>
+        <a href="admin/login.html" class="bg-green-900 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition">Admin</a>
       </div>
     </div>
   </nav>
 
   <script>
-    // Mobile menu toggle
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
     menuBtn.addEventListener('click', () => menu.classList.toggle('hidden'));
   </script>
 
   <!-- Hero Section -->
-  <section class="bg-green-100">
-    <div class="max-w-7xl mx-auto px-4 py-16 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-green-800 mb-4">Latest Articles</h1>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">Tips, guides, and inspiration for your salad journey.</p>
+  <section class="relative h-96 w-full mt-16">
+    <img src="images/hero.jpg" alt="Salad Articles" class="absolute inset-0 w-full h-full object-cover brightness-75">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/20"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">Latest Articles</h1>
+      <p class="text-lg md:text-xl mt-4 font-bold text-white max-w-2xl">Tips, guides, and inspiration for your salad journey.</p>
     </div>
   </section>
 
   <!-- Articles Grid -->
-  <section class="max-w-7xl mx-auto px-4 py-16">
-    <div id="articles-list" class="grid md:grid-cols-3 gap-8"></div>
+  <section class="max-w-7xl mx-auto px-4 py-20">
+    <div id="articles-list" class="grid md:grid-cols-3 gap-10"></div>
   </section>
 
   <script>
     fetch('http://localhost:3000/articles')
-  .then(res => res.json())
-  .then(articles => {
-    const container = document.getElementById('articles-list');
-    articles.forEach(a => {
-      const card = document.createElement('div');
-      card.className = 'bg-white p-6 rounded-lg shadow hover:shadow-lg transition';
-      card.innerHTML = `
-        <h3 class="text-xl font-bold text-gray-800 mb-2">${a.title}</h3>
-        <p class="text-gray-600 mb-4">${a.desc}</p>
-        <a href="${a.link}" class="text-green-600 font-semibold hover:underline">Read More</a>
-      `;
-      container.appendChild(card);
-    });
-  });
-
+      .then(res => res.json())
+      .then(articles => {
+        const container = document.getElementById('articles-list');
+        articles.forEach(a => {
+          const card = document.createElement('div');
+          card.className = 'bg-yellow-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl border border-yellow-200 transition transform hover:-translate-y-1 hover:scale-105';
+          card.innerHTML = `
+            <h3 class="text-2xl font-bold text-orange-600 mb-3 px-3 py-1 rounded bg-yellow-100">${a.title}</h3>
+            <p class="text-orange-700 mb-5">${a.desc}</p>
+            <a href="${a.link}" class="text-green-700 font-semibold hover:underline">Read More →</a>
+          `;
+          container.appendChild(card);
+        });
+      });
   </script>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-200 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>&copy; 2025 Salad Master. All rights reserved.</p>
-      <div class="mt-2">
-        <a href="#" class="text-green-400 hover:underline mx-2">Facebook</a>
-        <a href="#" class="text-green-400 hover:underline mx-2">Instagram</a>
-        <a href="#" class="text-green-400 hover:underline mx-2">Twitter</a>
-      </div>
+  <footer class="bg-green-700 text-green-50 py-10 text-center transition-colors duration-500">
+    <p>&copy; 2025 Salad Master. All rights reserved.</p>
+    <div class="mt-3 space-x-4">
+      <a href="#" class="hover:underline">Facebook</a>
+      <a href="#" class="hover:underline">Instagram</a>
+      <a href="#" class="hover:underline">Twitter</a>
     </div>
   </footer>
 
 </body>
 </html>
-
-
