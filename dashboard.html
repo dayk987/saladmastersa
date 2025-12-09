@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Salad Master</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<header class="bg-green-600 text-white p-4 sticky top-0 z-50">
+  <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+</header>
+
+<div class="max-w-7xl mx-auto p-4">
+
+  <!-- Add New Event -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">Add New Event</h2>
+    <form id="eventForm" class="space-y-4 bg-white p-4 rounded shadow">
+      <input type="text" id="eventTitle" placeholder="Event Title" class="w-full p-2 border rounded" required>
+      <input type="text" id="eventDesc" placeholder="Event Description" class="w-full p-2 border rounded" required>
+      <input type="date" id="eventDate" class="w-full p-2 border rounded" required>
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Event</button>
+    </form>
+  </section>
+
+  <!-- Event List -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">Event List</h2>
+    <div id="eventList" class="space-y-4"></div>
+  </section>
+
+  <!-- Add New Article -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">Add New Article</h2>
+    <form id="articleForm" class="space-y-4 bg-white p-4 rounded shadow">
+      <input type="text" id="articleTitle" placeholder="Article Title" class="w-full p-2 border rounded" required>
+      <input type="text" id="articleDesc" placeholder="Article Description" class="w-full p-2 border rounded" required>
+      <input type="text" id="articleLink" placeholder="Article Link" class="w-full p-2 border rounded" required>
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Article</button>
+    </form>
+  </section>
+
+  <!-- Article List -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">Article List</h2>
+    <div id="articleList" class="space-y-4"></div>
+  </section>
+
+</div>
+
+<script>
+const backend = "http://localhost:3000"; // Backend URL
+
+// Render Events
+async function fetchEvents() {
+  const res = await fetch(`${backend}/events`);
+  const events = await res.json();
+  const container = document.getElementById('eventList');
+  container.innerHTML = '';
+  events.forEach(e => {
+    const div = document.createElement('div');
+    div.className = 'bg-white p-4 rounded shadow flex justify-between items-center';
+    div.innerHTML = `
+      <div>
+        <h3 class="font-bold">${e.title}</h3>
+        <p>${e.desc}</p>
+        <span class="text-gray-500">Date: ${new Date(e.date).toLocaleDateString()}</span>
+      </div>
+      <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteEvent('${e._id}')">Delete</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Add Event
+document.getElementById('eventForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const event = {
+    title: document.getElementById('eventTitle').value,
+    desc: document.getElementById('eventDesc').value,
+    date: document.getElementById('eventDate').value
+  };
+  await fetch(`${backend}/events`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(event)
+  });
+  document.getElementById('eventForm').reset();
+  fetchEvents();
+});
+
+// Delete Event
+async function deleteEvent(id) {
+  await fetch(`${backend}/events/${id}`, { method: 'DELETE' });
+  fetchEvents();
+}
+
+// Render Articles
+async function fetchArticles() {
+  const res = await fetch(`${backend}/articles`);
+  const articles = await res.json();
+  const container = document.getElementById('articleList');
+  container.innerHTML = '';
+  articles.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'bg-white p-4 rounded shadow flex justify-between items-center';
+    div.innerHTML = `
+      <div>
+        <h3 class="font-bold">${a.title}</h3>
+        <p>${a.desc}</p>
+        <a href="${a.link}" class="text-green-600 font-semibold hover:underline">Read More</a>
+      </div>
+      <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteArticle('${a._id}')">Delete</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Add Article
+document.getElementById('articleForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const article = {
+    title: document.getElementById('articleTitle').value,
+    desc: document.getElementById('articleDesc').value,
+    link: document.getElementById('articleLink').value
+  };
+  await fetch(`${backend}/articles`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(article)
+  });
+  document.getElementById('articleForm').reset();
+  fetchArticles();
+});
+
+// Delete Article
+async function deleteArticle(id) {
+  await fetch(`${backend}/articles/${id}`, { method: 'DELETE' });
+  fetchArticles();
+}
+
+// Initial fetch
+fetchEvents();
+fetchArticles();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Salad Master</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center h-screen">
+
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-green-600 mb-6 text-center">Admin Login</h2>
+    
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 mb-1">Username</label>
+        <input type="text" id="username" class="w-full p-2 border border-gray-300 rounded" required>
+      </div>
+      <div>
+        <label class="block text-gray-700 mb-1">Password</label>
+        <input type="password" id="password" class="w-full p-2 border border-gray-300 rounded" required>
+      </div>
+      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">Login</button>
+    </form>
+
+    <p id="errorMsg" class="text-red-500 mt-4 text-center hidden">Invalid credentials</p>
+  </div>
+
+  <script>
+    // Simple front-end login (for testing only)
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Example credentials
+      if(username === "admin" && password === "password") {
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    });
+  </script>
+
+</body>
+</html>
