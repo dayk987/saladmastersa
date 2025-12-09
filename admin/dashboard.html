@@ -8,6 +8,20 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
 
+<!-- Navbar (Sticky) -->
+  <nav class="bg-white shadow p-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-green-600">Salad Master</a>
+      <button id="menu-btn" class="md:hidden text-green-600 font-bold text-2xl">☰</button>
+      <div id="menu" class="hidden md:flex space-x-4 items-center">
+        <a href="#about" class="hover:text-green-600">About</a>
+        <a href="events.html" class="hover:text-green-600">Events</a>
+        <a href="articles.html" class="hover:text-green-600">Articles</a>
+        <a href="/admin/login.html" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Admin</a>
+      </div>
+    </div>
+  </nav>
+  
 <header class="bg-green-600 text-white p-4 sticky top-0 z-50">
   <h1 class="text-2xl font-bold">Admin Dashboard</h1>
 </header>
@@ -148,3 +162,4 @@ fetchArticles();
 
 </body>
 </html>
+
